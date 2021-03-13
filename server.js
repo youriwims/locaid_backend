@@ -7,9 +7,9 @@ const routes = require('./routes/data');
 dotenv.config({ path: './config.env' });
 const app = express();
 
-// app.get('/', (req, res) => {
-//         res.send({ hi: 'there' });
-// });
+app.get('/', (req, res) => {
+        res.send({ hi: 'there' });
+});
 
 mongoose.connect(process.env.MONGO_URI, {
         useNewUrlParser: true,
