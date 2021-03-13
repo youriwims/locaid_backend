@@ -7,25 +7,25 @@ const routes = require('./routes/data');
 dotenv.config({ path: './config.env' });
 const app = express();
 
-app.get('/', (req, res) => {
-        res.send({ hi: 'there' });
+// app.get('/', (req, res) => {
+//         res.send({ hi: 'there' });
+// });
+
+mongoose.connect(process.env.MONGO_URI, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+        useFindAndModify: false,
+        useUnifiedTopology: true,
 });
 
-// mongoose.connect(process.env.MONGO_URI, {
-//         useNewUrlParser: true,
-//         useCreateIndex: true,
-//         useFindAndModify: false,
-//         useUnifiedTopology: true,
-// });
+mongoose.connection.on('connected', () => {
+        console.log('MongoDB connected');
+});
 
-// mongoose.connection.on('connected', () => {
-//         console.log('MongoDB connected');
-// });
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ extended: false }));
 
-// app.use(express.urlencoded({ extended: true }));
-// app.use(express.json({ extended: false }));
-
-// app.use('/api/locaid', routes);
+app.use('/api/locaid', routes);
 
 // if (process.env.NODE_ENV === 'production') {
 //         app.use(express.static('client/build'));
